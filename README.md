@@ -2,7 +2,7 @@
 
 A multi-agent tourism system that helps users plan trips by providing weather information and tourist attraction suggestions for any location.
 
-![Screenshot](screenshot.png)
+![Screenshot](image.png)
 
 ## Features
 
