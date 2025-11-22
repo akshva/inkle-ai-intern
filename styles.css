@@ -1,0 +1,71 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7f7f7;
+}
+
+h1 {
+    color: #0d1b2a;
+}
+
+#planButton {
+    background-color: #1b263b;
+}
+
+#planButton:hover {
+    background-color: #0f1625;
+}
+
+#planButton:disabled {
+    background-color: #2d3a52;
+    cursor: not-allowed;
+}
+
+.agent-card {
+    background-color: #e0e1dd;
+    border-color: #415a77;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.agent-card:hover {
+    transform: translateY(-2px);
+}
+
+#outputArea ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#outputArea li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e5e7eb;
+    font-weight: 500;
+}
+
+#outputArea li:last-child {
+    border-bottom: none;
+}
+
+/* Ensure input field is properly styled and interactive */
+#placeInput {
+    outline: none;
+    box-sizing: border-box;
+}
+
+#placeInput:focus {
+    outline: 2px solid #415a77;
+    outline-offset: 2px;
+    border-color: #415a77;
+}
+
+#loadingIndicator {
+    color: #274c77;
+}
+
+#loadingIndicator svg {
+    color: #274c77;
+}
+

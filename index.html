@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inkle Tourism AI Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="p-4 md:p-8 min-h-screen flex items-start justify-center">
+
+    <div class="w-full max-w-2xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold">Inkle Tourism AI Agent</h1>
+            <p class="mt-2 text-gray-600">Multi-Agent System powered by OpenStreetMaps and Open-Meteo.</p>
+        </header>
+
+        <!-- Main Input Card -->
+        <div class="agent-card p-6 rounded-xl border mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Plan Your Trip</h2>
+            
+            <input 
+                type="text" 
+                id="placeInput" 
+                placeholder="Enter a place you want to visit and your query..."
+                class="w-full p-3 border border-gray-300 rounded-lg transition duration-150"
+                autocomplete="off"
+                spellcheck="true"
+                autofocus
+            >
+            
+            <button 
+                id="planButton"
+                class="mt-4 w-full text-white p-3 rounded-lg font-bold transition duration-200"
+            >
+                Start Planning
+            </button>
+        </div>
+
+        <!-- Output Card -->
+        <div class="agent-card p-6 rounded-xl border">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Agent Response</h2>
+            
+            <div id="loadingIndicator" class="hidden flex items-center justify-center p-4 font-medium">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing request...
+            </div>
+
+            <div id="outputArea" class="text-gray-700 min-h-[100px]">
+                <p class="text-gray-500 italic">Enter a destination above to begin.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript files in correct order -->
+    <script src="utils.js"></script>
+    <script src="agents/geocoding.js"></script>
+    <script src="agents/weather.js"></script>
+    <script src="agents/places.js"></script>
+    <script src="agents/orchestrator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
