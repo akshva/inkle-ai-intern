@@ -1,6 +1,5 @@
-// Places agent - finds tourist attractions using Overpass API (OpenStreetMap)
+//Places agent-finds tourist attractions using Overpass API (OpenStreetMap)
 async function getTouristPlaces(lat, lon, count = 5) {
-    // Build the Overpass query to find tourist spots within 10km
     const overpassQuery = `
 [out:json][timeout:25];
 // Search within 10km radius (10000 meters)
@@ -26,7 +25,7 @@ out skel qt;
         const response = await fetchWithRetry(overpassUrl, {
             method: 'POST',
             body: overpassQuery,
-            // Some Overpass servers want a User-Agent
+        
             headers: { 
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8', 
                 'User-Agent': 'InkleAssignmentTourismAI/1.0 (CanvasApp)' 
@@ -38,9 +37,9 @@ out skel qt;
             const placeNames = data.elements
                 .filter(e => e.tags && e.tags.name)
                 .map(e => e.tags.name)
-                .slice(0, count); // Only take what we need
+                .slice(0, count); 
             
-            // Remove any duplicates
+            //removing dupli
             return [...new Set(placeNames)];
         }
         return [];
