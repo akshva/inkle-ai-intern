@@ -1,4 +1,4 @@
-// Main orchestrator - coordinates all the child agents and puts together the final response
+//orchester-coordinates all the child agents and puts together the final response
 async function planTrip(fullQuery, uiElements) {
     const { planButton, outputArea, loadingIndicator, placeInput } = uiElements;
 
@@ -7,13 +7,13 @@ async function planTrip(fullQuery, uiElements) {
         return;
     }
 
-    // Show loading state
+    //loading state
     planButton.disabled = true;
     planButton.textContent = 'Processing...';
     outputArea.innerHTML = '';
     loadingIndicator.classList.remove('hidden');
     
-    // Figure out which place they're asking about
+    //figuring out which place
     const place = extractPlaceFromQuery(fullQuery);
     
     if (!place) {
@@ -24,7 +24,7 @@ async function planTrip(fullQuery, uiElements) {
         return;
     }
 
-    // Check what they're asking for - weather, places, or both
+    //check what they're asking for-weather, places, or both
     const queryLower = fullQuery.toLowerCase();
     const wantsWeather = queryLower.includes('temperature') || queryLower.includes('weather') || queryLower.includes('temp');
     const wantsPlaces = queryLower.includes('places') || 
