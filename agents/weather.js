@@ -1,4 +1,4 @@
-// Weather agent - fetches current weather data from Open-Meteo API
+//Weather agent-fetches current weather data from Open-Meteo API
 async function getWeather(lat, lon) {
     const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,precipitation_probability&forecast_days=1&timezone=auto`;
     
