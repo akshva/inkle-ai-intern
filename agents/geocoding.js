@@ -1,4 +1,4 @@
-// Geocoding agent - converts place names to coordinates using Nominatim API
+//Geocoding agent-converts place names to coordinates using nominatim API
 async function getCoordinates(place) {
     const locationName = cleanPlaceName(place);
     const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationName)}&format=json&limit=1`;
