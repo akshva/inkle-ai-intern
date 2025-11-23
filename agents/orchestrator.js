@@ -36,18 +36,18 @@ async function planTrip(fullQuery, uiElements) {
                         queryLower.includes('things to do') ||
                         queryLower.includes('tourist');
     
-    // If they say "plan my trip" without asking for weather, assume they want places
+    //If they say "plan my trip" without asking for weather, assume they want places
     const isPlanningQuery = queryLower.includes('plan') || queryLower.includes('trip');
     const shouldShowPlaces = wantsPlaces || (isPlanningQuery && !wantsWeather);
 
     let coords, weatherData, placesData;
     
     try {
-        // First, get coordinates for the place (we need this for everything)
+        //getting coordinates
         coords = await getCoordinates(place);
 
         if (!coords) {
-            // Place not found
+            //Place not found
             outputArea.innerHTML = `<p class="text-red-600 font-semibold">I'm sorry, I don't know if a place called "${place}" exists or I couldn't find its location data. Please try again with a more specific or valid place name.</p>`;
             loadingIndicator.classList.add('hidden');
             planButton.disabled = false;
@@ -55,7 +55,7 @@ async function planTrip(fullQuery, uiElements) {
             return;
         }
         
-        // Shorten the place name for display (Nominatim gives us really long addresses)
+        //shorten the place name for display (Nominatim gives us really long addresses)
         const displayPlaceName = getShortDisplayName(coords.name, place);
 
         const lat = coords.lat;
@@ -66,52 +66,52 @@ async function planTrip(fullQuery, uiElements) {
         if (wantsWeather) {
             promises.push(getWeather(lat, lon));
         } else {
-            promises.push(Promise.resolve(null)); // Keep array order consistent
+            promises.push(Promise.resolve(null)); 
         }
 
         if (shouldShowPlaces) {
             promises.push(getTouristPlaces(lat, lon));
         } else {
-            promises.push(Promise.resolve(null)); // Keep array order consistent
+            promises.push(Promise.resolve(null)); 
         }
 
-        // Run both agents in parallel for speed
+        //run both agents in parallel for speed
         [weatherData, placesData] = await Promise.all(promises);
 
-        // Format the response to match the example format
+        //format the response to match the example format
         let weatherText = '';
         let placesText = '';
         let placesList = [];
 
-        // Build weather text: "In [Place] it's currently [temp]°C with a chance of [precip]% to rain."
+        //build weather text: "In [Place] it's currently [temp]°C with a chance of [precip]% to rain."
         if (wantsWeather && weatherData) {
             weatherText = `In ${displayPlaceName} it's currently ${weatherData.temperature}${weatherData.temperatureUnit === '°C' ? '°C' : weatherData.temperatureUnit} with a chance of ${weatherData.precipitation}% to rain.`;
         } else if (wantsWeather && !weatherData) {
             weatherText = `Weather data is currently unavailable for ${displayPlaceName}.`;
         }
         
-        // Build places text: "In [Place] these are the places you can go, [list]"
+        //build places text: "In [Place] these are the places you can go, [list]"
         if (shouldShowPlaces) {
             if (placesData && placesData.length > 0) {
                 placesList = placesData;
                 if (weatherText) {
-                    // If we already have weather, use "And these are the places..."
+                    //If we already have weather, use "And these are the places..."
                     placesText = 'And these are the places you can go:';
                 } else {
-                    // Otherwise use the full format
+                    //Otherwise use the full format
                     placesText = `In ${displayPlaceName} these are the places you can go,`;
                 }
             } else {
-                // No places found
+                //no places found
                 placesText = `I couldn't find any specific tourist attractions for ${displayPlaceName} using the Places Agent, but feel free to explore the area!`;
             }
         }
 
-        // If they didn't ask for weather or places, tell them to be more specific
+        //If they didn't ask for weather or places, tell them to be more specific
         if (!wantsWeather && !shouldShowPlaces) {
             outputArea.innerHTML = '<p class="text-red-500">Please include a question in your query, like "what are the places I can visit" or "what is the temperature there?".</p>';
         } else {
-            // Put together the HTML response
+            //HTML response
             let htmlResponse = '';
             
             if (weatherText) {
@@ -136,10 +136,10 @@ async function planTrip(fullQuery, uiElements) {
 
     } catch (error) {
         console.error("Orchestration Error:", error);
-        // Something went wrong - probably an API issue
+        //error
         outputArea.innerHTML = `<p class="text-red-600 font-semibold">An unexpected error occurred during the trip planning process. This is likely an issue with one of the underlying APIs. Please try again later. (Error: ${error.message})</p>`;
     } finally {
-        // Always reset the UI, even if something failed
+        //resetting ui
         loadingIndicator.classList.add('hidden');
         planButton.disabled = false;
         planButton.textContent = 'Start Planning';
